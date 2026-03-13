@@ -1,0 +1,58 @@
+# llm-mddocgen configuration (TOML)
+# Global defaults live at ~/.llm-mddocgen/config.toml.
+# This file is a per-project override. Copy it to ./llm-mddocgen.toml and edit for your environment.
+# Values here are merged on top of the global config.
+
+# Override persona and template roots (optional).
+# Built-in defaults live at ~/.llm-mddocgen/default/; user custom overrides live at ~/.llm-mddocgen/custom/.
+# Uncomment and set these to use a project-specific location instead.
+# personas_root = "personas"
+# templates_root = "templates"
+
+# Profile root for injecting standing user context into prompts (optional).
+# profile_root = "profile"
+
+# Projects root for task-scoped project context (optional).
+# Each project is a directory with a project.md, or a flat <name>.md file.
+# Tasks reference a project via the `project:` frontmatter field.
+# projects_root = "projects"
+
+# Generated output root. Resolved relative to the current working directory.
+generated_root = "generated"
+
+# Internal disposable system-managed state.
+# internal_root = "~/.llm-mddocgen"
+
+[llm]
+# Enable OpenAI-compatible synthesis calls.
+enabled = false
+
+# Controls whether model reasoning output is saved.
+# When true, thinking blocks (<think>...</think>) are extracted and saved to a separate
+# <taskname>-thinking-<timestamp>.md file next to the report. When false, they are discarded.
+thinking_output = false
+
+# Primary example: local Ollama OpenAI-compatible endpoint.
+base_url = "http://localhost:11434/v1"
+model = "llama3.2"
+
+# If your endpoint requires auth, set a key here or use LLM_MDDOCGEN_API_KEY env var.
+api_key = ""
+
+# Request behavior tuning. Temperature is sent exactly as configured — no automatic adjustments.
+# Recommended starting points by provider/mode:
+#   Ollama (llama3, mistral, etc.)  — temperature = 0.2,  max_tokens = 1200
+#   Qwen3 standard mode             — temperature = 0.2,  max_tokens = 4096
+#   Qwen3 thinking mode             — temperature = 0.7,  max_tokens = 10000
+#   OpenAI gpt-4o                   — temperature = 0.3,  max_tokens = 2048
+timeout_seconds = 60
+temperature = 0.2
+max_tokens = 1200
+
+# Web search via tool use (requires a model that supports function/tool calling, e.g. llama3.1+).
+# When enabled, llm-mddocgen asks the model to generate search queries via a tool-use call, then
+# fetches the top results from DuckDuckGo and injects them as source documents before synthesis.
+# Silently skipped if the API endpoint does not support tool use.
+# web_search = false
+# web_search_max_queries = 3   # max search queries the model may generate
+# web_search_max_results = 5   # max pages fetched per query

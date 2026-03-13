@@ -1,0 +1,7 @@
+services:
+  llm-mddocgen:
+    build: .
+    image: llm-mddocgen:latest
+    command: ["--workspace", "/workspace"]
+    volumes:
+      - ${WORKSPACE_PATH:-./workspace/default}:/workspace

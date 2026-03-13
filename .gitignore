@@ -1,0 +1,16 @@
+# Local environment
+.venv/
+.pytest_cache/
+
+# Python cache/build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Local runtime config (machine-specific; may contain secrets)
+llm-mddocgen.toml
+
+# llm-mddocgen runtime outputs and cache
+.llm-mddocgen/
+**/publish/
+
